@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Теория 2 — Классификация уравнений с параметром</title>
+  
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true
+      }
+    };
+  </script>
+  
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    /* Используем те же стили из Theory 1 */
+    .theory-intro {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      padding: 3rem 2.5rem;
+      border-radius: var(--radius-xl);
+      margin-bottom: 2.5rem;
+      border-left: 6px solid var(--primary-color);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .theory-intro h2 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: var(--text-3xl);
+    }
+
+    .theory-intro p {
+      font-size: var(--text-lg);
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    .definition-box {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border-left: 6px solid var(--accent-color);
+      margin: 2rem 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .definition-box h4 {
+      color: #92400e;
+      margin-bottom: 1rem;
+      font-size: var(--text-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .definition-box h4::before {
+      content: '📌';
+      font-size: 1.5em;
+    }
+
+    .theorem-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border-left: 6px solid var(--secondary-color);
+      margin: 2rem 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .theorem-box h4 {
+      color: #065f46;
+      margin-bottom: 1rem;
+      font-size: var(--text-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .theorem-box h4::before {
+      content: '✓';
+      font-size: 1.5em;
+      color: var(--secondary-color);
+    }
+
+    .example-box {
+      background: #fefce8;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      border: 2px dashed #ca8a04;
+      margin: 2rem 0;
+    }
+
+    .example-box h4 {
+      color: #854d0e;
+      margin-bottom: 1.5rem;
+      font-size: var(--text-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .example-box h4::before {
+      content: '💡';
+      font-size: 1.3em;
+    }
+
+    .method-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-base);
+      border-top: 4px solid var(--primary-color);
+    }
+
+    .method-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .method-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+      font-size: var(--text-xl);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .method-number {
+      background: var(--primary-color);
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: var(--text-lg);
+    }
+
+    .tip-box {
+      background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+      border-left: 4px solid #ec4899;
+    }
+
+    .tip-box strong {
+      color: #9f1239;
+    }
+
+    .key-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .key-point {
+      background: var(--bg-secondary);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .key-point h5 {
+      color: var(--primary-dark);
+      margin-bottom: 0.75rem;
+      font-size: var(--text-lg);
+    }
+
+    .formula-highlight {
+      background: #f0f9ff;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      margin: 1.5rem 0;
+      text-align: center;
+      border: 2px solid #0ea5e9;
+    }
+
+    .next-topic-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--gradient-blue);
+      color: white;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      font-size: var(--text-lg);
+      margin-top: 2rem;
+      transition: all var(--transition-base);
+      box-shadow: var(--shadow-md);
+    }
+
+    .next-topic-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .comparison-table th {
+      background: var(--primary-color);
+      color: white;
+      padding: 1.25rem;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .comparison-table td {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--bg-tertiary);
+    }
+
+    .comparison-table tr:hover {
+      background: var(--bg-secondary);
+    }
+
+    .algorithm-step {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: var(--radius-md);
+      border-left: 5px solid var(--primary-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      background: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: var(--text-xl);
+      flex-shrink: 0;
+    }
+
+    .step-content h5 {
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+      font-size: var(--text-lg);
+    }
+
+    .warning-box {
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+      border-left: 4px solid #ef4444;
+      margin: 1.5rem 0;
+    }
+
+    .warning-box h5 {
+      color: #991b1b;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .warning-box h5::before {
+      content: '⚠️';
+      font-size: 1.3em;
+    }
+
+    .category-card {
+      background: linear-gradient(135deg, white 0%, var(--bg-secondary) 100%);
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      border-top: 5px solid var(--primary-color);
+    }
+
+    .category-card h3 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: var(--text-2xl);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .category-icon {
+      background: var(--primary-color);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-container">
+    <h1>
+      <span class="icon">📐</span>
+      Теория 2: Классификация уравнений
+    </h1>
+    <nav>
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="theory1.html" class="nav-link">Теория 1</a>
+      <a href="theory2.html" class="nav-link active">Теория 2</a>
+      <a href="theory3.html" class="nav-link">Теория 3</a>
+      <a href="tasks.html" class="nav-link">Задачи</a>
+      <a href="practice.html" class="nav-link">Практика</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Stats -->
+<div class="stats-container">
+  <div class="stat-card">
+    <div class="icon">🔢</div>
+    <h3>6</h3>
+    <p>Типов уравнений</p>
+  </div>
+  <div class="stat-card">
+    <div class="icon">🛠️</div>
+    <h3>8</h3>
+    <p>Методов анализа</p>
+  </div>
+  <div class="stat-card">
+    <div class="icon">📊</div>
+    <h3>15+</h3>
+    <p>Детальных примеров</p>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main>
+  <div class="content-wrapper">
+
+    <!-- Введение -->
+    <div class="theory-intro">
+      <h2><i class="fas fa-sitemap"></i> Систематизация задач с параметрами</h2>
+      <p>
+        Успешное решение задач с параметрами требует не только знания методов, но и умения <strong>правильно классифицировать</strong> тип уравнения. Каждый тип имеет свои особенности, ловушки и оптимальные стратегии решения.
+      </p>
+      <p>
+        В этом разделе мы подробно рассмотрим все основные типы уравнений с параметрами, встречающиеся в ЕГЭ, изучим их характерные признаки, типичные ошибки и пошаговые алгоритмы решения. Особое внимание уделяется <strong>граничным случаям</strong> — значениям параметра, при которых меняется структура уравнения.
+      </p>
+      <p>
+        Материал построен от простого к сложному: от линейных уравнений до комбинированных задач с модулями, иррациональными выражениями и системами. Каждый тип сопровождается подробными примерами с полным разбором.
+      </p>
+    </div>
+
+    <!-- Классификация -->
+    <section>
+      <h2><i class="fas fa-list-alt"></i> Полная классификация уравнений с параметром</h2>
+
+      <!-- Линейные -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">1</div>
+          Линейные уравнения с параметром
+        </h3>
+
+        <div class="definition-box">
+          <h4>Общий вид</h4>
+          <p>Линейное уравнение с параметром имеет вид:</p>
+          <div class="formula-highlight">
+            \[ax + b = 0\]
+          </div>
+          <p>где \(a\) и/или \(b\) зависят от параметра.</p>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Критический момент</h4>
+          <p>
+            Уравнение является линейным только при <strong>\(a \neq 0\)</strong>. Если \(a = 0\), необходимо рассматривать отдельно:
+          </p>
+          <ul style="margin-left: 2rem; margin-top: 1rem;">
+            <li>Если \(a = 0\) и \(b \neq 0\): уравнение не имеет решений (\(0 \cdot x = -b\) — противоречие)</li>
+            <li>Если \(a = 0\) и \(b = 0\): уравнение имеет бесконечно много решений (\(0 \cdot x = 0\) — тождество)</li>
+            <li>Если \(a \neq 0\): уравнение имеет единственное решение \(x = -\frac{b}{a}\)</li>
+          </ul>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Линейное уравнение с параметром</h4>
+          <p><strong>Задача:</strong> При каких значениях \(a\) уравнение \((a - 2)x + 3a = 5\) не имеет решений?</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Определяем условие отсутствия решений</h5>
+              <p>Уравнение не имеет решений, когда коэффициент при \(x\) равен нулю, но свободный член не равен нулю.</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Приравниваем коэффициент к нулю</h5>
+              <p>\[a - 2 = 0 \Rightarrow a = 2\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Проверяем при \(a = 2\)</h5>
+              <p>Подставляем \(a = 2\) в уравнение:</p>
+              <p>\[0 \cdot x + 6 = 5 \Rightarrow 6 = 5\]</p>
+              <p>Получили противоречие — уравнение не имеет решений.</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong> \(a = 2\)
+          </div>
+        </div>
+      </div>
+
+      <!-- Квадратные -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">2</div>
+          Квадратные уравнения с параметром
+        </h3>
+
+        <div class="definition-box">
+          <h4>Общий вид</h4>
+          <p>Квадратное уравнение с параметром:</p>
+          <div class="formula-highlight">
+            \[ax^2 + bx + c = 0, \quad a \neq 0\]
+          </div>
+          <p>где хотя бы один из коэффициентов \(a\), \(b\), \(c\) зависит от параметра.</p>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Анализ через дискриминант</h4>
+          <p>Дискриминант квадратного уравнения:</p>
+          <div class="formula-highlight">
+            \[D = b^2 - 4ac\]
+          </div>
+          <p style="margin-top: 1rem;">Количество корней определяется знаком дискриминанта:</p>
+          <table class="comparison-table" style="margin-top: 1rem;">
+            <thead>
+              <tr>
+                <th>Условие</th>
+                <th>Количество корней</th>
+                <th>Формула корней</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>\(D > 0\)</td>
+                <td>Два различных корня</td>
+                <td>\(x_{1,2} = \frac{-b \pm \sqrt{D}}{2a}\)</td>
+              </tr>
+              <tr>
+                <td>\(D = 0\)</td>
+                <td>Один корень (кратности 2)</td>
+                <td>\(x = -\frac{b}{2a}\)</td>
+              </tr>
+              <tr>
+                <td>\(D < 0\)</td>
+                <td>Нет действительных корней</td>
+                <td>—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="warning-box">
+          <h5>Частая ошибка</h5>
+          <p>
+            Забывают проверить случай \(a = 0\)! При \(a = 0\) уравнение становится линейным, и его нужно рассматривать отдельно.
+          </p>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Квадратное уравнение — анализ количества корней</h4>
+          <p><strong>Задача:</strong> Найти все значения \(a\), при которых уравнение \(x^2 - 2ax + a^2 - 4 = 0\) имеет два различных корня.</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Вычисляем дискриминант</h5>
+              <p>\[D = (-2a)^2 - 4 \cdot 1 \cdot (a^2 - 4) = 4a^2 - 4a^2 + 16 = 16\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Анализируем дискриминант</h5>
+              <p>Дискриминант \(D = 16 > 0\) и <strong>не зависит от параметра \(a\)</strong>.</p>
+              <p>Это означает, что уравнение имеет два различных корня при <strong>любом значении \(a\)</strong>.</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong> При всех \(a \in \mathbb{R}\) уравнение имеет два различных корня.
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Найти параметр для одного корня</h4>
+          <p><strong>Задача:</strong> При каких \(a\) уравнение \(x^2 + (a - 1)x + a = 0\) имеет ровно один корень?</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Условие одного корня</h5>
+              <p>Для одного корня необходимо \(D = 0\).</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Вычисляем дискриминант</h5>
+              <p>\[D = (a - 1)^2 - 4 \cdot 1 \cdot a = a^2 - 2a + 1 - 4a = a^2 - 6a + 1\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Приравниваем к нулю</h5>
+              <p>\[a^2 - 6a + 1 = 0\]</p>
+              <p>Решаем через дискриминант:</p>
+              <p>\[D_a = 36 - 4 = 32 = 16 \cdot 2\]</p>
+              <p>\[a = \frac{6 \pm \sqrt{32}}{2} = \frac{6 \pm 4\sqrt{2}}{2} = 3 \pm 2\sqrt{2}\]</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong> \(a = 3 - 2\sqrt{2}\) или \(a = 3 + 2\sqrt{2}\)
+          </div>
+        </div>
+      </div>
+
+      <!-- Модульные -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">3</div>
+          Уравнения с модулем и параметром
+        </h3>
+
+        <div class="definition-box">
+          <h4>Типичные виды</h4>
+          <p>Модульные уравнения с параметром встречаются в формах:</p>
+          <ul style="margin-left: 2rem; margin-top: 1rem;">
+            <li>\(|f(x)| = a\) — модуль равен константе-параметру</li>
+            <li>\(|x - a| = g(x)\) — модуль выражения с параметром</li>
+            <li>\(|f(x)| = |g(x, a)|\) — оба модуля</li>
+          </ul>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Метод раскрытия модуля</h4>
+          <p>Для уравнения вида \(|f(x)| = g(x)\) необходимо:</p>
+          <ol style="margin-left: 2rem; margin-top: 1rem;">
+            <li><strong>Проверить ОДЗ:</strong> \(g(x) \geq 0\)</li>
+            <li><strong>Разбить на два случая:</strong>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Случай 1: \(f(x) \geq 0 \Rightarrow f(x) = g(x)\)</li>
+                <li>Случай 2: \(f(x) < 0 \Rightarrow -f(x) = g(x)\)</li>
+              </ul>
+            </li>
+            <li><strong>Решить уравнение в каждом случае</strong></li>
+            <li><strong>Проверить:</strong> принадлежность решений соответствующему случаю и ОДЗ</li>
+          </ol>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Модуль и параметр</h4>
+          <p><strong>Задача:</strong> Решить уравнение \(|x - a| = 2x - 1\).</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Определяем ОДЗ</h5>
+              <p>Правая часть должна быть неотрицательной:</p>
+              <p>\[2x - 1 \geq 0 \Rightarrow x \geq \frac{1}{2}\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Случай 1: \(x - a \geq 0\)</h5>
+              <p>\[x - a = 2x - 1\]</p>
+              <p>\[x = 1 - a\]</p>
+              <p><strong>Проверка условий:</strong></p>
+              <ul style="margin-left: 1.5rem;">
+                <li>\(x \geq \frac{1}{2} \Rightarrow 1 - a \geq \frac{1}{2} \Rightarrow a \leq \frac{1}{2}\)</li>
+                <li>\(x - a \geq 0 \Rightarrow 1 - a - a \geq 0 \Rightarrow a \leq \frac{1}{2}\)</li>
+              </ul>
+              <p>При \(a \leq \frac{1}{2}\) решение \(x = 1 - a\) подходит.</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Случай 2: \(x - a < 0\)</h5>
+              <p>\[-(x - a) = 2x - 1\]</p>
+              <p>\[a - x = 2x - 1\]</p>
+              <p>\[3x = a + 1\]</p>
+              <p>\[x = \frac{a + 1}{3}\]</p>
+              <p><strong>Проверка условий:</strong></p>
+              <ul style="margin-left: 1.5rem;">
+                <li>\(x \geq \frac{1}{2} \Rightarrow \frac{a + 1}{3} \geq \frac{1}{2} \Rightarrow a \geq \frac{1}{2}\)</li>
+                <li>\(x - a < 0 \Rightarrow \frac{a + 1}{3} - a < 0 \Rightarrow a > \frac{1}{2}\)</li>
+              </ul>
+              <p>При \(a > \frac{1}{2}\) решение \(x = \frac{a + 1}{3}\) подходит.</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong><br>
+            При \(a \leq \frac{1}{2}\): \(x = 1 - a\)<br>
+            При \(a > \frac{1}{2}\): \(x = \frac{a + 1}{3}\)
+          </div>
+        </div>
+      </div>
+
+      <!-- Иррациональные -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">4</div>
+          Иррациональные уравнения с параметром
+        </h3>
+
+        <div class="definition-box">
+          <h4>Общий вид</h4>
+          <p>Иррациональные уравнения содержат корни:</p>
+          <div class="formula-highlight">
+            \[\sqrt{f(x, a)} = g(x, a)\]
+          </div>
+          <p>или более сложные комбинации корней.</p>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Алгоритм решения</h4>
+          <ol style="margin-left: 2rem; margin-top: 1rem;">
+            <li><strong>Определить ОДЗ:</strong>
+              <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Подкоренное выражение \(\geq 0\)</li>
+                <li>Правая часть \(\geq 0\) (если корень в левой части)</li>
+              </ul>
+            </li>
+            <li><strong>Возвести в квадрат</strong> обе части</li>
+            <li><strong>Решить</strong> полученное уравнение</li>
+            <li><strong>Проверить</strong> все решения подстановкой в исходное уравнение и ОДЗ</li>
+          </ol>
+        </div>
+
+        <div class="warning-box">
+          <h5>Критически важно</h5>
+          <p>
+            При возведении в квадрат могут появиться <strong>посторонние корни</strong>. Обязательна проверка всех найденных решений!
+          </p>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Иррациональное уравнение</h4>
+          <p><strong>Задача:</strong> Решить уравнение \(\sqrt{x + a} = x - 2\).</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Определяем ОДЗ</h5>
+              <p>\[x + a \geq 0 \Rightarrow x \geq -a\]</p>
+              <p>\[x - 2 \geq 0 \Rightarrow x \geq 2\]</p>
+              <p>Общее ОДЗ: \(x \geq \max(2, -a)\)</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Возводим в квадрат</h5>
+              <p>\[x + a = (x - 2)^2 = x^2 - 4x + 4\]</p>
+              <p>\[x^2 - 5x + 4 - a = 0\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Анализируем дискриминант</h5>
+              <p>\[D = 25 - 4(4 - a) = 25 - 16 + 4a = 9 + 4a\]</p>
+              <p>Для существования решений: \(D \geq 0 \Rightarrow a \geq -\frac{9}{4}\)</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h5>Находим корни</h5>
+              <p>\[x = \frac{5 \pm \sqrt{9 + 4a}}{2}\]</p>
+              <p>Каждый корень необходимо проверить на принадлежность ОДЗ: \(x \geq \max(2, -a)\)</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong> При \(a \geq -\frac{9}{4}\) уравнение имеет решения, которые находятся по формуле выше и проверяются на ОДЗ.
+          </div>
+        </div>
+      </div>
+
+      <!-- Дробно-рациональные -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">5</div>
+          Дробно-рациональные уравнения
+        </h3>
+
+        <div class="definition-box">
+          <h4>Общий вид</h4>
+          <p>Уравнения, содержащие дроби с переменной в знаменателе:</p>
+          <div class="formula-highlight">
+            \[\frac{f(x, a)}{g(x, a)} = h(x, a)\]
+          </div>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Алгоритм решения</h4>
+          <ol style="margin-left: 2rem; margin-top: 1rem;">
+            <li><strong>ОДЗ:</strong> знаменатель \(\neq 0\)</li>
+            <li><strong>Умножить</strong> обе части на знаменатель</li>
+            <li><strong>Решить</strong> полученное уравнение</li>
+            <li><strong>Исключить</strong> корни, обращающие знаменатель в ноль</li>
+          </ol>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Дробное уравнение</h4>
+          <p><strong>Задача:</strong> Решить уравнение \(\frac{x - a}{x + 1} = a\).</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>ОДЗ</h5>
+              <p>\[x \neq -1\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Умножаем на знаменатель</h5>
+              <p>\[x - a = a(x + 1)\]</p>
+              <p>\[x - a = ax + a\]</p>
+              <p>\[x - ax = 2a\]</p>
+              <p>\[x(1 - a) = 2a\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Анализируем по параметру</h5>
+              <p><strong>Если \(a \neq 1\):</strong> \(x = \frac{2a}{1 - a}\)</p>
+              <p><strong>Если \(a = 1\):</strong> \(0 \cdot x = 2\) — нет решений</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong><br>
+            При \(a \neq 1\): \(x = \frac{2a}{1 - a}\)<br>
+            При \(a = 1\): решений нет
+          </div>
+        </div>
+      </div>
+
+      <!-- Системы -->
+      <div class="category-card">
+        <h3>
+          <div class="category-icon">6</div>
+          Системы уравнений с параметром
+        </h3>
+
+        <div class="definition-box">
+          <h4>Типичный вид</h4>
+          <p>Система двух уравнений с двумя неизвестными и параметром:</p>
+          <div class="formula-highlight">
+            \[\begin{cases} 
+            f(x, y, a) = 0 \\ 
+            g(x, y, a) = 0 
+            \end{cases}\]
+          </div>
+        </div>
+
+        <div class="theorem-box">
+          <h4>Метод решения через теорему Виета</h4>
+          <p>Если система имеет вид:</p>
+          <p>\[\begin{cases} x + y = p \\ xy = q \end{cases}\]</p>
+          <p>То \(x\) и \(y\) — корни квадратного уравнения:</p>
+          <div class="formula-highlight">
+            \[t^2 - pt + q = 0\]
+          </div>
+        </div>
+
+        <div class="example-box">
+          <h4>Пример: Система с параметром</h4>
+          <p><strong>Задача:</strong> Решить систему \[\begin{cases} x + y = a \\ xy = a - 1 \end{cases}\]</p>
+          
+          <p style="margin-top: 1.5rem;"><strong>Решение:</strong></p>
+          
+          <div class="algorithm-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h5>Применяем теорему Виета</h5>
+              <p>\(x\) и \(y\) — корни уравнения:</p>
+              <p>\[t^2 - at + (a - 1) = 0\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h5>Вычисляем дискриминант</h5>
+              <p>\[D = a^2 - 4(a - 1) = a^2 - 4a + 4 = (a - 2)^2\]</p>
+            </div>
+          </div>
+
+          <div class="algorithm-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h5>Анализируем решения</h5>
+              <p>\(D = (a - 2)^2 \geq 0\) для всех \(a\)</p>
+              <p><strong>При \(a = 2\):</strong> \(D = 0\) — одно решение (\(x = y = 1\))</p>
+              <p><strong>При \(a \neq 2\):</strong> \(D > 0\) — два различных решения</p>
+            </div>
+          </div>
+
+          <div class="tip-box">
+            <strong>Ответ:</strong> Система имеет решения при всех \(a \in \mathbb{R}\)
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Общие рекомендации -->
+    <section style="margin-top: 3rem;">
+      <h2><i class="fas fa-clipboard-check"></i> Общие рекомендации по классификации</h2>
+
+      <div class="key-points">
+        <div class="key-point">
+          <h5>📍 Определяйте тип сразу</h5>
+          <p>Перед началом решения четко определите, к какому типу относится уравнение — это подскажет оптимальную стратегию.</p>
+        </div>
+
+        <div class="key-point">
+          <h5>📍 Проверяйте граничные случаи</h5>
+          <p>Значения параметра, при которых меняется тип уравнения (например, квадратное → линейное), всегда рассматривайте отдельно.</p>
+        </div>
+
+        <div class="key-point">
+          <h5>📍 ОДЗ — первый шаг</h5>
+          <p>Для модульных, иррациональных и дробных уравнений всегда начинайте с определения ОДЗ.</p>
+        </div>
+
+        <div class="key-point">
+          <h5>📍 Проверяйте все решения</h5>
+          <p>Особенно при возведении в степень и умножении на выражения с переменной — могут появиться посторонние корни.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Навигация -->
+    <div style="display: flex; justify-content: space-between; margin-top: 4rem; flex-wrap: wrap; gap: 1rem;">
+      <a href="theory1.html" class="next-topic-btn" style="background: var(--bg-tertiary); color: var(--text-primary);">
+        <i class="fas fa-arrow-left"></i>
+        Назад к Теории 1
+      </a>
+      <a href="theory3.html" class="next-topic-btn">
+        Теория 3: Стратегии решения
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 | Классификация уравнений с параметром — систематический подход к ЕГЭ №18</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="js/script.js"></script>
+
+</body>
+</html>

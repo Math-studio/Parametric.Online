@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Методы решения задач с параметрами</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+<header>
+  <h1>Методы решения задач с параметрами</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="theory.html">Теория</a> |
+    <a href="methods.html" class="active">Методы</a> |
+    <a href="tasks.html">Задачи</a> |
+    <a href="practice.html">Тренировка</a>
+  </nav>
+</header>
+
+<main>
+  <!-- Аналитический метод -->
+  <section class="card">
+    <h2>Аналитический метод</h2>
+    <p>Используем дискриминант и проверяем количество решений в зависимости от параметра.</p>
+    <button class="show-solution" onclick="toggleSolution('ana1')">Пример решения</button>
+    <div id="ana1" class="solution" style="display:none;">
+      \[
+      x^2 - 2ax + a^2 - 1 = 0, \quad D = 4
+      \]  
+      Всегда два корня → нет значений \(a\), при которых ровно один корень.
+    </div>
+  </section>
+
+  <!-- Графический метод -->
+  <section class="card">
+    <h2>Графический метод</h2>
+    <p>Строим график функции и смотрим, как меняется количество пересечений с осью x при разных параметрах.</p>
+    <img src="img/parabola.png" alt="График функции с параметром a">
+  </section>
+
+  <!-- Проверка количества решений -->
+  <section class="card">
+    <h2>Проверка решений подставкой</h2>
+    <p>Можно подставлять несколько значений параметра и смотреть на число корней.</p>
+  </section>
+</main>
+
+<script>
+function toggleSolution(id) {
+    const block = document.getElementById(id);
+    block.style.display = (block.style.display === "none") ? "block" : "none";
+}
+</script>
+</body>
+</html>

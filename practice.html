@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практика — Параметры ЕГЭ №18</title>
+  
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        processEscapes: true,
+        packages: {'[+]': ['ams']}
+      },
+      loader: {load: ['[tex]/ams']}
+    };
+  </script>
+  
+  <!-- Шрифты -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="header-container">
+    <h1>
+      <span class="icon">📝</span>
+      Практика задач
+    </h1>
+    <nav>
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="theory1.html" class="nav-link">Теория 1</a>
+      <a href="theory2.html" class="nav-link">Теория 2</a>
+      <a href="theory3.html" class="nav-link">Теория 3</a>
+      <a href="tasks.html" class="nav-link">Задачи</a>
+      <a href="practice.html" class="nav-link active">Практика</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Main -->
+<main>
+  <div class="content-wrapper">
+    
+    <h2>
+      <i class="fas fa-pencil-alt" style="margin-right: 10px;"></i>
+      Тренировочные задачи
+    </h2>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="typeFilter">
+          <i class="fas fa-filter"></i>
+          Тип задачи:
+        </label>
+        <select id="typeFilter">
+          <option value="all">Все задачи</option>
+          <option value="main">Основная волна</option>
+          <option value="reserve">Резервная волна</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="difficultyFilter">
+          <i class="fas fa-star"></i>
+          Сложность:
+        </label>
+        <select id="difficultyFilter">
+          <option value="all">Любая сложность</option>
+          <option value="easy">Легкая</option>
+          <option value="medium">Средняя</option>
+          <option value="hard">Сложная</option>
+        </select>
+      </div>
+      
+      <div class="control-group">
+        <label for="searchBox">
+          <i class="fas fa-search"></i>
+          Поиск:
+        </label>
+        <input type="text" id="searchBox" placeholder="Введите тему или условие...">
+      </div>
+    </div>
+
+    <!-- Примеры задач -->
+    <div class="examples-container" id="examples-container">
+      
+      <!-- Пример 1 -->
+      <div class="example" data-type="main" data-difficulty="medium">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 1</span>
+            <span class="difficulty">★★★☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge">Квадратное уравнение</span>
+          <span class="badge">Дискриминант</span>
+        </div>
+        
+        <div class="task-text">
+          Найдите все значения параметра \(a\), при которых квадратное уравнение 
+          \[(a + 1)x^2 - 2ax + (a - 1) = 0\]
+          имеет два различных действительных корня.
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p class="step-title"><strong>Шаг 1.</strong> Проверка типа уравнения</p>
+              <p>Уравнение квадратное только при условии, что коэффициент при \(x^2\) не равен нулю:</p>
+              <p>\[a + 1 \neq 0 \Rightarrow a \neq -1\]</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 2.</strong> Вычисление дискриминанта</p>
+              <p>Для квадратного уравнения \(Ax^2 + Bx + C = 0\):</p>
+              <p>\[D = B^2 - 4AC = (-2a)^2 - 4(a + 1)(a - 1) = 4a^2 - 4(a^2 - 1) = 4\]</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 3.</strong> Анализ дискриминанта</p>
+              <p>Дискриминант \(D = 4 > 0\) при всех \(a \neq -1\).</p>
+              <p>Это означает, что при \(a \neq -1\) уравнение всегда имеет два различных корня.</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a \in \mathbb{R} \setminus \{-1\}\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 2 -->
+      <div class="example" data-type="reserve" data-difficulty="medium">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 2</span>
+            <span class="difficulty">★★★☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge reserve">Резервная волна</span>
+          <span class="badge">Уравнение с модулем</span>
+          <span class="badge">Геометрический метод</span>
+        </div>
+        
+        <div class="task-text">
+          Найдите все значения параметра \(a\), при каждом из которых уравнение
+          \[|x - a| = 2x - 1\]
+          имеет хотя бы одно решение.
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p class="step-title"><strong>Шаг 1.</strong> Область допустимых значений (ОДЗ)</p>
+              <p>Так как модуль всегда неотрицателен:</p>
+              <p>\[2x - 1 \geq 0 \Rightarrow x \geq \frac{1}{2}\]</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 2.</strong> Случай 1: \(x \geq a\)</p>
+              <p>Если \(x \geq a\), то \(|x - a| = x - a\). Уравнение принимает вид:</p>
+              <p>\[x - a = 2x - 1 \Rightarrow x = 1 - a\]</p>
+              <p>Условия: \(1 - a \geq \frac{1}{2}\) и \(1 - a \geq a\) ⇒ \(a \leq \frac{1}{2}\)</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 3.</strong> Случай 2: \(x < a\)</p>
+              <p>Если \(x < a\), то \(|x - a| = a - x\). Уравнение принимает вид:</p>
+              <p>\[a - x = 2x - 1 \Rightarrow x = \frac{a + 1}{3}\]</p>
+              <p>Условия: \(\frac{a + 1}{3} \geq \frac{1}{2}\) и \(\frac{a + 1}{3} < a\) ⇒ \(a > \frac{1}{2}\)</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 4.</strong> Объединение решений</p>
+              <p>Из первого случая: решения при \(a \leq \frac{1}{2}\)</p>
+              <p>Из второго случая: решения при \(a > \frac{1}{2}\)</p>
+              <p>Таким образом, уравнение имеет решения при всех действительных \(a\).</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a \in \mathbb{R}\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 3 -->
+      <div class="example" data-type="main" data-difficulty="hard">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 3</span>
+            <span class="difficulty">★★★★☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge hard">Иррациональное уравнение</span>
+          <span class="badge">ОДЗ и возведение в квадрат</span>
+        </div>
+        
+        <div class="task-text">
+          Найдите все значения параметра \(a\), при каждом из которых уравнение
+          \[\sqrt{x + a} = x - 2\]
+          имеет хотя бы одно действительное решение.
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p class="step-title"><strong>Шаг 1.</strong> Область допустимых значений (ОДЗ)</p>
+              <p>Для иррационального уравнения:</p>
+              <p>\[x + a \geq 0 \Rightarrow x \geq -a\]</p>
+              <p>\[x - 2 \geq 0 \Rightarrow x \geq 2\]</p>
+              <p>Объединяя: \(x \geq \max(2, -a)\)</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 2.</strong> Возведение в квадрат</p>
+              <p>При выполнении ОДЗ возводим в квадрат:</p>
+              <p>\[x + a = x^2 - 4x + 4\]</p>
+              <p>\[x^2 - 5x + 4 - a = 0\]</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 3.</strong> Анализ квадратного уравнения</p>
+              <p>Дискриминант:</p>
+              <p>\[D = 25 - 4(4 - a) = 9 + 4a\]</p>
+              <p>Для существования корней: \(D \geq 0 \Rightarrow a \geq -\frac{9}{4}\)</p>
+              <p>Корни: \(x_{1,2} = \frac{5 \pm \sqrt{9 + 4a}}{2}\)</p>
+            </div>
+            
+            <div class="step">
+              <p class="step-title"><strong>Шаг 4.</strong> Проверка ОДЗ</p>
+              <p>Рассмотрим меньший корень: \(x_1 = \frac{5 - \sqrt{9 + 4a}}{2} \geq 2\)</p>
+              <p>\[5 - \sqrt{9 + 4a} \geq 4 \Rightarrow \sqrt{9 + 4a} \leq 1\]</p>
+              <p>Так как корень неотрицателен: \(9 + 4a \leq 1 \Rightarrow a \leq -2\)</p>
+              <p>Учитывая \(a \geq -\frac{9}{4}\), получаем: \(-\frac{9}{4} \leq a \leq -2\)</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a \in \left[-\frac{9}{4}, -2\right]\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 4 -->
+      <div class="example" data-type="main" data-difficulty="easy">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 4</span>
+            <span class="difficulty">★★☆☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge">Квадратное</span>
+        </div>
+        
+        <div class="task-text">
+          При каких \(a\) уравнение \(x^2 + ax + 1 = 0\) имеет два различных корня?
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p><strong>Дискриминант:</strong></p>
+              <p>\[D = a^2 - 4 > 0 \Rightarrow a^2 > 4 \Rightarrow |a| > 2\]</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a \in (-\infty, -2) \cup (2, +\infty)\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 5 -->
+      <div class="example" data-type="reserve" data-difficulty="medium">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 5</span>
+            <span class="difficulty">★★★☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge reserve">Резервная волна</span>
+          <span class="badge">Дробное</span>
+        </div>
+        
+        <div class="task-text">
+          Решите уравнение \(\frac{x - a}{x + 1} = a\).
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p><strong>ОДЗ:</strong> \(x \neq -1\)</p>
+              <p>\[x - a = a(x + 1) \Rightarrow x - a = ax + a\]</p>
+              <p>\[x(1 - a) = 2a\]</p>
+            </div>
+            
+            <div class="step">
+              <p>При \(a \neq 1\): \(x = \frac{2a}{1 - a}\)</p>
+              <p>При \(a = 1\): \(0 \cdot x = 2\) — решений нет</p>
+              <p>Проверяем ОДЗ: \(\frac{2a}{1 - a} \neq -1 \Rightarrow 2a \neq -1 + a \Rightarrow a \neq -1\)</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong></p>
+              <p>• При \(a \neq 1\) и \(a \neq -1\): \(x = \frac{2a}{1 - a}\)</p>
+              <p>• При \(a = 1\): нет решений</p>
+              <p>• При \(a = -1\): \(x = -1\) не входит в ОДЗ ⇒ нет решений</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 6 -->
+      <div class="example" data-type="main" data-difficulty="hard">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 6</span>
+            <span class="difficulty">★★★★☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge hard">Показательное</span>
+        </div>
+        
+        <div class="task-text">
+          Найдите \(a\), при которых \(4^x - (a + 3) \cdot 2^x + 3a = 0\) имеет два корня.
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p><strong>Замена:</strong> \(t = 2^x > 0\)</p>
+              <p>\[t^2 - (a + 3)t + 3a = 0\]</p>
+              <p>\[D = (a + 3)^2 - 12a = a^2 - 6a + 9 = (a - 3)^2\]</p>
+              <p>\[t_1 = a, \quad t_2 = 3\]</p>
+            </div>
+            
+            <div class="step">
+              <p>Для двух различных корней исходного уравнения:</p>
+              <p>1) Оба \(t\) положительны: \(a > 0\) и \(3 > 0\)</p>
+              <p>2) Они различны: \(a \neq 3\)</p>
+              <p>3) Каждое \(t\) дает одно значение \(x = \log_2 t\)</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a \in (0, 3) \cup (3, +\infty)\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 7 -->
+      <div class="example" data-type="main" data-difficulty="medium">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 7</span>
+            <span class="difficulty">★★★☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge">Модуль</span>
+        </div>
+        
+        <div class="task-text">
+          При каких \(a\) уравнение \(|x^2 - 4| = a\) имеет два решения?
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p><strong>Графический анализ:</strong></p>
+              <p>Рассмотрим функцию \(f(x) = |x^2 - 4|\).</p>
+              <p>Её график получается из параболы \(y = x^2 - 4\) отражением отрицательной части.</p>
+            </div>
+            
+            <div class="step">
+              <p>Ключевые точки:</p>
+              <p>• \(f(-2) = f(2) = 0\)</p>
+              <p>• \(f(0) = 4\)</p>
+              <p>• \(\lim_{x \to \pm\infty} f(x) = +\infty\)</p>
+            </div>
+            
+            <div class="step">
+              <p>Горизонтальная прямая \(y = a\) пересекает график:</p>
+              <p>• При \(a = 0\): две точки пересечения (\(x = \pm 2\))</p>
+              <p>• При \(0 < a < 4\): четыре точки пересечения</p>
+              <p>• При \(a = 4\): три точки пересечения</p>
+              <p>• При \(a > 4\): две точки пересечения</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a = 0\) или \(a > 4\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пример 8 -->
+      <div class="example" data-type="reserve" data-difficulty="easy">
+        <div class="task-header">
+          <h3>
+            <span class="example-number">Задача 8</span>
+            <span class="difficulty">★★☆☆☆</span>
+          </h3>
+        </div>
+        
+        <div class="meta">
+          <span class="badge reserve">Резервная волна</span>
+          <span class="badge">Линейное</span>
+        </div>
+        
+        <div class="task-text">
+          При каких \(a\) уравнение \((a - 2)x + 3a = 5\) не имеет решений?
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        
+        <div class="solution">
+          <div class="solution-steps">
+            <div class="step">
+              <p>Линейное уравнение не имеет решений, когда:</p>
+              <p>1) Коэффициент при \(x\) равен нулю: \(a - 2 = 0 \Rightarrow a = 2\)</p>
+              <p>2) Свободный член не равен нулю: \(3a \neq 5\)</p>
+            </div>
+            
+            <div class="step">
+              <p>При \(a = 2\): \(0 \cdot x + 6 = 5 \Rightarrow 6 = 5\) — противоречие</p>
+            </div>
+            
+            <div class="final-answer">
+              <p><strong>Ответ:</strong> \(a = 2\)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ 
+      <!-- Пример 9 -->
+      <div class="example visible" data-type="main" data-difficulty="hard">
+        <h3>
+          <span class="example-number">Пример 9</span>
+          <span class="difficulty">★★★★★</span>
+        </h3>
+        <div class="meta">
+          <span class="badge main">Основная волна</span>
+          <span class="badge hard">Система</span>
+        </div>
+        <div class="task-text">
+          Решите систему: 
+          \[\begin{cases} x + y = a \\ xy = a - 1 \end{cases}\]
+        </div>
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        <div class="solution">
+          <p><strong>Теорема Виета:</strong></p>
+          <p>\(x\) и \(y\) — корни уравнения \(t^2 - at + (a - 1) = 0\)</p>
+          <p>\[D = a^2 - 4(a - 1) = a^2 - 4a + 4 = (a - 2)^2 \geq 0\]</p>
+          <p>Решения существуют при всех \(a\)</p>
+          <p><strong>Ответ:</strong> \(a \in \mathbb{R}\)</p>
+        </div>
+      </div>
+
+      <!-- Пример 10 -->
+      <div class="example visible" data-type="reserve" data-difficulty="medium">
+        <h3>
+          <span class="example-number">Пример 10</span>
+          <span class="difficulty">★★★☆☆</span>
+        </h3>
+        <div class="meta">
+          <span class="badge reserve">Резервная волна</span>
+          <span class="badge">Квадратное</span>
+        </div>
+        <div class="task-text">
+          При каких \(a\) уравнение \(x^2 - 2ax + a^2 - 1 = 0\) имеет два корня?
+        </div>
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        <div class="solution">
+          <p><strong>Дискриминант:</strong></p>
+          <p>\[D = 4a^2 - 4(a^2 - 1) = 4 > 0\]</p>
+          <p>Всегда два различных корня</p>
+          <p><strong>Ответ:</strong> При всех \(a \in \mathbb{R}\)</p>
+        </div>
+      </div>
+
+      <!-- Пример 11 -->
+      <div class="example visible" data-type="reserve" data-difficulty="easy">
+        <h3>
+          <span class="example-number">Пример 11</span>
+          <span class="difficulty">★★☆☆☆</span>
+        </h3>
+        <div class="meta">
+          <span class="badge reserve">Резервная волна</span>
+          <span class="badge">Квадратное</span>
+        </div>
+        <div class="task-text">
+          При каких \(a\) уравнение \(x^2 + (a - 1)x + a = 0\) имеет один корень?
+        </div>
+        <button class="toggle-btn" onclick="toggleSolution(this)">
+          <span class="icon">▼</span>
+          Показать решение
+        </button>
+        <div class="solution">
+          <p><strong>Дискриминант:</strong></p>
+          <p>\[D = (a - 1)^2 - 4a = a^2 - 6a + 1 = 0\]</p>
+          <p>\[a = \frac{6 \pm \sqrt{32}}{2} = 3 \pm 2\sqrt{2}\]</p>
+          <p><strong>Ответ:</strong> \(a = 3 \pm 2\sqrt{2}\)</p>
+        </div>
+      
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 | Практика задач с параметрами</p>
+</footer>
+
+<!-- JavaScript -->
+<script src="js/script.js"></script>
+
+<script>
+// =====================================================
+// ПРОСТАЯ СИСТЕМА ДЛЯ ПРАКТИКИ
+// =====================================================
+
+// Функция переключения решения
+function toggleSolution(button) {
+  const solution = button.nextElementSibling;
+  const icon = button.querySelector('.icon');
+  
+  if (solution.style.display === 'block') {
+    solution.style.display = 'none';
+    icon.textContent = '▼';
+    button.classList.remove('active');
+  } else {
+    solution.style.display = 'block';
+    icon.textContent = '▲';
+    button.classList.add('active');
+    
+    // Обновляем MathJax для формул в решении
+    if (window.MathJax) {
+      MathJax.typesetPromise([solution]);
+    }
+  }
+}
+
+// Система фильтрации
+function initFilters() {
+  const typeFilter = document.getElementById('typeFilter');
+  const difficultyFilter = document.getElementById('difficultyFilter');
+  const searchBox = document.getElementById('searchBox');
+  
+  function applyFilters() {
+    const type = typeFilter ? typeFilter.value : 'all';
+    const difficulty = difficultyFilter ? difficultyFilter.value : 'all';
+    const search = searchBox ? searchBox.value.toLowerCase() : '';
+    
+    const examples = document.querySelectorAll('.example');
+    let visibleCount = 0;
+    
+    examples.forEach(example => {
+      const exampleType = example.dataset.type;
+      const exampleDifficulty = example.dataset.difficulty;
+      const exampleText = example.textContent.toLowerCase();
+      
+      const matchesType = type === 'all' || exampleType === type;
+      const matchesDifficulty = difficulty === 'all' || 
+                               matchesDifficultyRange(exampleDifficulty, difficulty);
+      const matchesSearch = !search || exampleText.includes(search);
+      
+      if (matchesType && matchesDifficulty && matchesSearch) {
+        example.style.display = 'block';
+        example.classList.add('fade-in');
+        visibleCount++;
+      } else {
+        example.style.display = 'none';
+        example.classList.remove('fade-in');
+      }
+    });
+    
+    showEmptyState(visibleCount === 0);
+  }
+  
+  // Привязываем события
+  if (typeFilter) typeFilter.addEventListener('change', applyFilters);
+  if (difficultyFilter) difficultyFilter.addEventListener('change', applyFilters);
+  if (searchBox) {
+    searchBox.addEventListener('input', debounce(applyFilters, 300));
+  }
+  
+  // Инициализируем фильтры
+  applyFilters();
+}
+
+// Проверка диапазона сложности
+function matchesDifficultyRange(stars, level) {
+  const starMap = {
+    'easy': [1, 2],
+    'medium': [3, 3],
+    'hard': [4, 5]
+  };
+  
+  if (!starMap[level]) return true;
+  
+  const starCount = (stars.match(/★/g) || []).length;
+  const [min, max] = starMap[level];
+  
+  return starCount >= min && starCount <= max;
+}
+
+// Показать/скрыть состояние "нет результатов"
+function showEmptyState(show) {
+  let emptyState = document.querySelector('.empty-state');
+  
+  if (show && !emptyState) {
+    emptyState = document.createElement('div');
+    emptyState.className = 'empty-state';
+    emptyState.innerHTML = `
+      <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+        <h3 style="margin-bottom: 0.5rem;">Задачи не найдены</h3>
+        <p>Попробуйте изменить параметры фильтрации</p>
+      </div>
+    `;
+    document.querySelector('.examples-container').prepend(emptyState);
+  } else if (!show && emptyState) {
+    emptyState.remove();
+  }
+}
+
+// Функция debounce для оптимизации поиска
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('📝 Система практики загружена');
+  
+  // Инициализируем фильтры
+  initFilters();
+  
+  // Скрываем все решения при загрузке
+  document.querySelectorAll('.solution').forEach(solution => {
+    solution.style.display = 'none';
+  });
+  
+  // Горячие клавиши
+  document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + F для поиска
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      e.preventDefault();
+      const searchBox = document.getElementById('searchBox');
+      if (searchBox) {
+        searchBox.focus();
+        searchBox.select();
+      }
+    }
+    
+    // Escape для сброса поиска
+    if (e.key === 'Escape') {
+      const searchBox = document.getElementById('searchBox');
+      if (document.activeElement === searchBox && searchBox.value) {
+        searchBox.value = '';
+        const event = new Event('input');
+        searchBox.dispatchEvent(event);
+      }
+    }
+  });
+  
+  // Инициализация MathJax
+  if (window.MathJax) {
+    MathJax.typesetPromise();
+  }
+});
+
+// Экспорт функции для HTML
+window.toggleSolution = toggleSolution;
+</script>
+
+</body>
+</html>
